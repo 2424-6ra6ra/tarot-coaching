@@ -138,9 +138,9 @@ function Field({label,children,required}){
   </div>;
 }
 
-function Input({value,onChange,placeholder}){
+function Input({value,onChange,placeholder,maxLength}){
   return <input value={value} onChange={e=>onChange(e.target.value)}
-    placeholder={placeholder} style={{width:"100%",padding:"11px 14px",fontFamily:sans,
+    placeholder={placeholder} maxLength={maxLength} style={{width:"100%",padding:"11px 14px",fontFamily:sans,
       fontSize:15,background:C.input,color:C.text,border:`1.5px solid ${C.inputBorder}`,
       borderRadius:10,outline:"none",boxSizing:"border-box",transition:"border-color 0.2s"}}
     onFocus={e=>e.target.style.borderColor=C.accent}
@@ -312,7 +312,7 @@ export default function Home(){
                   options={["恋愛","仕事","人間関係","スピリチュアル","総合"]}/></Field>
               <Field label="禁止ワード（カンマ区切り）">
                 <Input value={banned} onChange={v=>{setBanned(v);setReaderSaved(false);}}
-                  placeholder="例: 別れ, 不幸, 災い"/></Field>
+                  placeholder="例: 別れ, 不幸, 災い" maxLength={100}/></Field>
               <div style={{textAlign:"right"}}>
                 <Btn disabled={!readerReady} color={C.accent}
                   onClick={()=>setReaderSaved(true)}>設定を保存</Btn>
@@ -327,7 +327,7 @@ export default function Home(){
                 <div style={{fontFamily:sans,fontSize:12,fontWeight:700,color:C.textMid,
                   marginBottom:12,letterSpacing:0.5}}>新しいお客さんを追加</div>
                 <div style={{display:"flex",flexDirection:"column",gap:12}}>
-                  <Input value={newName} onChange={setNewName} placeholder="お名前"/>
+                  <Input value={newName} onChange={setNewName} placeholder="お名前" maxLength={40}/>
                   <BirthSelect year={nY} month={nM} day={nD}
                     onYear={setNY} onMonth={setNM} onDay={setND}/>
                   <Chips value={newTopic} onChange={setNewTopic} options={[
